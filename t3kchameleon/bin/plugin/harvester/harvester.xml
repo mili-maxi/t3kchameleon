@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<config charset="UTF-8">
+    <var-def name="urlList">
+        <xpath expression="//img/@src">
+            <html-to-xml>
+                <http url="http://news.bbc.co.uk"/>
+            </html-to-xml>
+        </xpath>
+    </var-def>
+        
+    <loop item="link" index="i" filter="unique">
+        <list>
+            <var name="urlList"/>
+        </list>
+        <body>
+            <file action="write" type="binary" path="images/${i}.gif">
+                <http url="${sys.fullUrl('http://news.bbc.co.uk', link)}"/>
+            </file>
+        </body>
+    </loop>
+</config>
